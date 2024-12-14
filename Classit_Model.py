@@ -90,14 +90,14 @@ def open_file_and_predict():
 root = tk.Tk()
 root.title("Classy Finder")
 #background color of the window
-root.configure(bg="#2E2E2E")  #Most likable grey out there
+root.configure(bg="#2E2E2E")  #most likable grey
 
 #button to open the file dialog and predict
 predict_button = tk.Button(root, text="Select A .WAV File", command=open_file_and_predict, bg="#444444", fg="white", font=("Arial", 12))
 predict_button.pack(pady=20)
 
 #dark theme labels
-preds_labelel = tk.Label(root, text="Class: None", font=("Futura", 14), fg="white", bg="#2E2E2E")
+preds_labelel = tk.Label(root, text="Class: None", font=("Futura", 14), fg="white", bg="#2E2E2E") #Futra = best font
 preds_labelel.pack(pady=10)
 
 root.iconbitmap("icon.ico") # Icon

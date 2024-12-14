@@ -66,9 +66,9 @@ val_loader =  DataLoader(val_set, batch_size=32, shuffle=False)
 # 13 inputs => 64 hidden layers => KICK, HAT, SNARE aka 3 Outputs
 class AudioClassifier(nn.Module): #OOP
     def __init__(self):
-            super(AudioClassifier, self).__init__() #call parent OPP (whole class thing :) )
-            self.fc1 = nn.Linear(13, 64) #13 MFCC features
-            self.fc2 = nn.Linear(64, 3) #3 classes out
+            super(AudioClassifier, self).__init__() #call parent OPP :)
+            self.fc1 = nn.Linear(13, 64) #13 MFCC features 13 => 64
+            self.fc2 = nn.Linear(64, 3) #3 classes out 64 => 3
 
     def forward(self, x): #move through the neural network hidden layers
             x = torch.relu(self.fc1(x))
