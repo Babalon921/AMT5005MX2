@@ -10,9 +10,15 @@ import torch
 import torch.nn as nn
 import torch.optim as optim
 
+import tkinter as tk
+from tkinter import messagebox
+import threading
+
 from sklearn.model_selection import train_test_split
 import librosa
 from torch.utils.data import Dataset, DataLoader
+
+model_undertraining = False #checks if the model is already being trained (prevents spamming the button)
 
 #MFFC from files (extract 13 features)
 def extract_mfcc(audio_path, n_mfcc=13):
@@ -83,46 +89,97 @@ optimizer = optim.Adam(model.parameters(), lr=0.001)  # Learning a little smalle
 epochs_num = 100  #number of epochs before stopping learning
 #accuracy very good with this many
 
-#training loop
-for epoch in range(epochs_num):
-    model.train()
-    run_loss = 0.0
-    preds_correct = 0
-    preds_sum = 0
+def train_model(): #train's model with error handling to let you know what happened
+    try:
+        for epoch in range(epochs_num):
+            try:
+                model.train()
+                run_loss = 0.0
+                preds_correct = 0
+                preds_sum = 0
 
-    for inputs, labels in train_loader:
-        optimizer.zero_grad()
-        outputs = model(inputs);
-        loss = criterion(outputs, labels)#calculate loss
-        loss.backward()
-        optimizer.step();
+                for inputs, labels in train_loader:
+                    try:
+                        optimizer.zero_grad()
+                        outputs = model(inputs)  # forward pass
+                        loss = criterion(outputs, labels)  # calculate loss
+                        loss.backward()
+                        optimizer.step()  # backpropagation and optimization step
 
-        run_loss += loss.item()#accumulate loss
+                        run_loss += loss.item()  # accumulate loss
 
-        _, predicted = torch.max(outputs, 1) #max
-        preds_correct += (predicted == labels).sum().item()
-        preds_sum += labels.size(0)
+                        _, predicted = torch.max(outputs, 1)  # max
+                        preds_correct += (predicted == labels).sum().item()
+                        preds_sum += labels.size(0)
 
-    #print the training accuracy
-    train_acc = preds_correct / preds_sum
-    print(f"Epoch {epoch+1}/{epochs_num}, Loss: {run_loss/len(train_loader):.4f}, Accuracy: {train_acc:.4f}")
+                    except Exception as e:
+                        print(f"Error during training batch: {e}")
+                        continue  # skip this batch if an error occurs
 
-    #validate model
-    model.eval()
-    preds_correct = 0
-    preds_sum = 0
+                # print the training accuracy
+                train_acc = preds_correct / preds_sum if preds_sum != 0 else 0
+                print(f"Epoch {epoch+1}/{epochs_num}, Loss: {run_loss/len(train_loader):.4f}, Accuracy: {train_acc:.4f}")
 
-    with torch.no_grad():
-        for inputs, labels in val_loader:
-            outputs = model(inputs)  #get the outputs
-            _, predicted = torch.max(outputs, 1)  # get the class
-            preds_correct += (predicted == labels).sum().item()  #count predictions
-            preds_sum += labels.size(0);  # ttal predictions
+                # validate model
+                model.eval()
+                preds_correct = 0
+                preds_sum = 0
 
-    #print the accuracy
-    val_accuracy = preds_correct / preds_sum
-            
-    print(f"Validation Accuracy: {val_accuracy:.4f}")
+                with torch.no_grad():
+                    for inputs, labels in val_loader:
+                        try:
+                            outputs = model(inputs)  # get the outputs
+                            _, predicted = torch.max(outputs, 1)  # get the class
+                            preds_correct += (predicted == labels).sum().item()  # count predictions
+                            preds_sum += labels.size(0)  # total predictions
 
-#save the trained model so you don't have to train it again
-torch.save(model.state_dict(), 'audio_classifier.pth')
+                        except Exception as e:
+                            print(f"Error during validation batch: {e}")
+                            continue  # skip this batch if an error occurs
+
+                # print the accuracy
+                val_accuracy = preds_correct / preds_sum if preds_sum != 0 else 0
+                print(f"Validation Accuracy: {val_accuracy:.4f}")
+
+            except Exception as e:
+                print(f"Error during epoch {epoch+1}: {e}")
+                continue  # skip this epoch if an error occurs
+
+        # save the trained model so you don't have to train it again
+        try:
+            torch.save(model.state_dict(), 'audio_classifier.pth')
+            print("Model saved successfully.")
+        except Exception as e:
+            print(f"Error saving the model: {e}")
+
+    except Exception as e:
+        print(f"Error in training process: {e}")
+
+#threading
+train_thread = threading.Thread(target=train_model)
+
+
+#--------------------------------GUI--------------------------------------
+root = tk.Tk()
+root.title("Train & Class")
+root.configure(bg="#2E2E2E")  #most likable grey
+
+#executes Classit_Model.py for quicker access
+def class_audio():  
+    root.destroy()
+    os.system("python Classit_Model.py");
+
+#buttons
+train_button = tk.Button(root, text="Train", command=train_thread.start , width=15, height=2, bg="aquamarine1")
+train_button.pack(pady=10)
+
+class_button = tk.Button(root, text="Class", command=class_audio, width=15, height=2, bg="brown1")
+class_button.pack(pady=10)
+
+#class
+root.iconbitmap("icon.ico") # Icon
+root.geometry("200x125") # size
+root.resizable(False, False) # not resizeable
+
+#GUI loop
+root.mainloop()

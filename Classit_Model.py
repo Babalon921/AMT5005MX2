@@ -13,6 +13,9 @@ from tkinter import filedialog, messagebox
 import matplotlib.pyplot as plt
 from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg
 
+#threading for later use
+import threading
+
 #same as the one used for training
 class AudioClassifier(nn.Module): #OOP
     def __init__(self):
@@ -27,7 +30,7 @@ class AudioClassifier(nn.Module): #OOP
 
 #load the model
 model = AudioClassifier()
-model.load_state_dict(torch.load('audio_classifier.pth'))
+model.load_state_dict(torch.load('audio_classifier.pth', weights_only=True)) #weights-only to prevent the FUTURE WARNING message.
 model.eval()  # EVAULATE THE MODEL #
 
 #process the sample file
@@ -52,24 +55,31 @@ def predict_sample(audio_file_path, model):
     predicted_label = label_map[predicted.item()]
     return predicted_label
 
-#visual audio wave
-def visualize_audio_waveform(audio_path):
-    plt.clf()  # plt.clf() doesnt work fix this!!
-    
+current_canvas = None #canvas value that allows current_canvas to be destroyed later on
+
+def visualize_audio_waveform(audio_path, root):
+    global current_canvas
+    plt.close()  # Close the previous plot
+
     y, sr = librosa.load(audio_path, sr=None)
     plt.figure(figsize=(5, 2), facecolor='#2E2E2E')
     ax = plt.gca() 
-    ax.set_facecolor('#2E2E2E') #set background of axises to background of GUI (better looking)
-    plt.plot(y,color='red')
-    plt.title("Waveform",color='white') #american spelling color 
-    plt.xlabel("Time",color='white')
-    plt.ylabel("Amplitude",color='white') 
+    ax.set_facecolor('#2E2E2E')
+    
+    #makes graph
+    plt.plot(y, color='red')
+    plt.title("Waveform", color='white')
+    plt.xlabel("Time", color='white')
+    plt.ylabel("Amplitude", color='white') 
     plt.tight_layout()
     
-    #embed the plot
-    canvas = FigureCanvasTkAgg(plt.gcf(), master=root)
-    canvas.get_tk_widget().pack()
-    canvas.draw()
+    #gets rid of the old canvas
+    if current_canvas:
+        current_canvas.get_tk_widget().destroy()
+    
+    current_canvas = FigureCanvasTkAgg(plt.gcf(), master=root)
+    current_canvas.get_tk_widget().pack()
+    current_canvas.draw()
 
 #open file dialog + predict class and visualize waveform
 def open_file_and_predict():
@@ -81,7 +91,7 @@ def open_file_and_predict():
             
             preds_labelel.config(text=f"Class: {predicted_class}")
 
-            visualize_audio_waveform(file_path)
+            visualize_audio_waveform(file_path, root)
             
         except Exception as e:
             messagebox.showerror("error", f"An error occurred: {e}")
@@ -93,8 +103,8 @@ root.title("Classy Finder")
 root.configure(bg="#2E2E2E")  #most likable grey
 
 #button to open the file dialog and predict
-predict_button = tk.Button(root, text="Select A .WAV File", command=open_file_and_predict, bg="#444444", fg="white", font=("Arial", 12))
-predict_button.pack(pady=20)
+pred_button = tk.Button(root, text="Select A .WAV File", command=open_file_and_predict, bg="#444444", fg="white", font=("Futura", 12))
+pred_button.pack(pady=20)
 
 #dark theme labels
 preds_labelel = tk.Label(root, text="Class: None", font=("Futura", 14), fg="white", bg="#2E2E2E") #Futra = best font
