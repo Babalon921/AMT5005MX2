@@ -1,6 +1,8 @@
 # WELCOME
 
-Due to some of the samples used, which are not fair use, this git repo is private.
+Hello,
+
+Make yourself at home!
 
 # Library’s Needed
 
