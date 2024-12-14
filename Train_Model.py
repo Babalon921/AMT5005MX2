@@ -18,7 +18,7 @@ from sklearn.model_selection import train_test_split
 import librosa
 from torch.utils.data import Dataset, DataLoader
 
-model_undertraining = False #checks if the model is already being trained (prevents spamming the button)
+ ## model_undertraining = False #checks if the model is already being trained (prevents spamming the button) ##NOT REQUIRED Thread is allready doing this
 
 #MFFC from files (extract 13 features)
 def extract_mfcc(audio_path, n_mfcc=13):
@@ -77,7 +77,7 @@ class AudioClassifier(nn.Module): #OOP
             self.fc2 = nn.Linear(64, 3) #3 classes out 64 => 3
 
     def forward(self, x): #move through the neural network hidden layers
-            x = torch.relu(self.fc1(x))
+            x = torch.relu(self.fc1(x)) #relu improvement
             x = self.fc2(x)
             return x;
 
@@ -86,8 +86,8 @@ model = AudioClassifier()
 criterion = nn.CrossEntropyLoss()
 optimizer = optim.Adam(model.parameters(), lr=0.001)  # Learning a little smaller for extra updates
 
-epochs_num = 100  #number of epochs before stopping learning
-#accuracy very good with this many
+epochs_num = 500  #number of epochs before stopping learning
+#Validation Accuracy of 0.8000
 
 def train_model(): #train's model with error handling to let you know what happened
     try:
