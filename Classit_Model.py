@@ -57,11 +57,13 @@ def visualize_audio_waveform(audio_path):
     plt.clf()  # plt.clf() doesnt work fix this!!
     
     y, sr = librosa.load(audio_path, sr=None)
-    plt.figure(figsize=(5, 2))
-    plt.plot(y)
-    plt.title("Waveform")
-    plt.xlabel("Time")
-    plt.ylabel("Amplitude")
+    plt.figure(figsize=(5, 2), facecolor='#2E2E2E')
+    ax = plt.gca() 
+    ax.set_facecolor('#2E2E2E')
+    plt.plot(y,color='red')
+    plt.title("Waveform",color='white') #american spelling color 
+    plt.xlabel("Time",color='white')
+    plt.ylabel("Amplitude",color='white') 
     plt.tight_layout()
     
     #embed the plot
