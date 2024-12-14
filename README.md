@@ -1,9 +1,5 @@
 # WELCOME
 
-Hello,
-
-Make yourself at home!
-
 # Library’s Needed
 
  - torch #For the network
