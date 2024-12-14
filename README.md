@@ -4,9 +4,13 @@ Due to some of the samples used, which are not fair use, this git repo is privat
 
 Libarys Needed:
 torch #For the network
+
 librosa #A libary for all things audio data analysis
+
 numpy #for the tensors and arrays etc
+
 tkinter # GUI
+
 matplotlib #Graph's
 
 Quick Desc of Script's & Dir's:
