@@ -121,7 +121,7 @@ for epoch in range(epochs_num):
 
     #print the accuracy
     val_accuracy = preds_correct / preds_sum
-    
+            
     print(f"Validation Accuracy: {val_accuracy:.4f}")
 
 #save the trained model so you don't have to train it again

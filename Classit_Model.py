@@ -1,3 +1,6 @@
+'''
+By Harry Gray
+'''
 #required libarys
 import torch
 from torch import nn
@@ -11,7 +14,7 @@ import matplotlib.pyplot as plt
 from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg
 
 #same as the one used for training
-class AudioClassifier(nn.Module):
+class AudioClassifier(nn.Module): # OPP
     def __init__(self):
         super(AudioClassifier, self).__init__()
         self.fc1 = nn.Linear(13, 64)#13 MFFC IN'ss
@@ -22,7 +25,7 @@ class AudioClassifier(nn.Module):
         x = self.fc2(x)
         return x
 
-#load the model (thats trained that is)
+#load the model
 model = AudioClassifier()
 model.load_state_dict(torch.load('audio_classifier.pth'))
 model.eval()  # EVAULATE THE MODEL #
