@@ -22,6 +22,8 @@ Increasing the dataset will help this.
  - numpy #for the tensors and arrays etc
  - tkinter # GUI
  - matplotlib #Graph's
+ - playsound
+ - threading
  - libs.txt is a pip freeze of my libs
 
 ## Directories
