@@ -23,7 +23,7 @@ This reads from the AudioFiles/* then takes 13 features (MFFC) from each audio f
 
 ## _Classit.py -
 
-This a simple gui, that takes the model dict and uses the trained model to predict the class of the sample. (with a higher dataset this gets quite good at predicting). Uses GUI and adds a graph for extra clarification.
+This is a simple gui, that takes the model dict and uses the trained model to predict the class of the sample. (with a higher dataset this gets quite good at predicting). Uses GUI and adds a graph for extra clarification.
 
 
 ## SIMPLE LAYOUT
