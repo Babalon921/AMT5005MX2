@@ -6,6 +6,11 @@ HAT is high frequency, quick attack
 SNARE is both low, mid and high, quick attack
 This was chosen as a decent challenge for the model, since SNARE is similar to both KICK and HAT is certain ways.
 
+Some interesting issues:
+HAT 02 almost always causes a false positive, it’s a HAT that usually is predicted as a KICK or SNARE.
+Increasing the dataset will help this.
+
+
 
 # Library’s Needed
 
