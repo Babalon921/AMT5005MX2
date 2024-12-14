@@ -1,5 +1,8 @@
 # WELCOME
-Simple Network That uses Tkinter as a GUI, 200 epochs with somewhat high accuracy (this takes 2 minutes to train), only 3 Class's "KICK,HAT,SNARE" so feeding it anything else will result in false positive.
+
+Start by running Train_Model.py - NEW GUI
+
+Simple Network That uses Tkinter as a GUI, 100-500 epochs with somewhat high accuracy (this takes 2 minutes to train), only 3 Class's "KICK,HAT,SNARE" so feeding it anything else will result in false positive.
 
 KICK is low frequency, slow attack
 HAT is high frequency, quick attack
@@ -19,6 +22,8 @@ Increasing the dataset will help this.
  - numpy #for the tensors and arrays etc
  - tkinter # GUI
  - matplotlib #Graph's
+ - playsound
+ - threading
  - libs.txt is a pip freeze of my libs
 
 ## Directories
