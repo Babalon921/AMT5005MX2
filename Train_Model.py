@@ -87,7 +87,6 @@ criterion = nn.CrossEntropyLoss()
 optimizer = optim.Adam(model.parameters(), lr=0.001)  # Learning a little smaller for extra updates
 
 epochs_num = 500  #number of epochs before stopping learning
-#Validation Accuracy of 0.8000
 
 def train_model(): #train's model with error handling to let you know what happened
     try:
