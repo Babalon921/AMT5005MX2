@@ -16,6 +16,10 @@ from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg
 #threading for later use
 import threading
 
+#playsound to play the .wav | simply libary
+from playsound import playsound
+
+
 #same as the one used for training
 class AudioClassifier(nn.Module): #OOP
     def __init__(self):
@@ -80,6 +84,7 @@ def visualize_audio_waveform(audio_path, root):
     current_canvas = FigureCanvasTkAgg(plt.gcf(), master=root)
     current_canvas.get_tk_widget().pack()
     current_canvas.draw()
+    playsound(audio_path) # simply play's th file.
 
 #open file dialog + predict class and visualize waveform
 def open_file_and_predict():
