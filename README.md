@@ -1,5 +1,12 @@
 # WELCOME
-Simple Network That uses Tkinter as a GUI
+Simple Network That uses Tkinter as a GUI, 100 epochs with somewhat high accuracy, only 3 Class's "KICK,HAT,SNARE" so feeding it anything else will result in false positive.
+
+KICK is low frequency, slow attack
+HAT is high frequency, quick attack
+SNARE is both low, mid and high, quick attack
+This was chosen as a decent challenge for the model, since SNARE is similar to both KICK and HAT is certain ways.
+
+
 # Library’s Needed
 
  - torch #For the network
