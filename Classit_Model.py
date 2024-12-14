@@ -100,5 +100,9 @@ predict_button.pack(pady=20)
 preds_labelel = tk.Label(root, text="Class: None", font=("Futura", 14), fg="white", bg="#2E2E2E")
 preds_labelel.pack(pady=10)
 
+root.iconbitmap("icon.ico") # Icon
+root.geometry("400x300") # size
+root.resizable(False, False) # not resizeable
+
 #run mainloop
 root.mainloop()
