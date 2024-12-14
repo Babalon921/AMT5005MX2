@@ -99,7 +99,7 @@ for epoch in range(epochs_num):
 
         run_loss += loss.item()#accumulate loss
 
-        _, predicted = torch.max(outputs, 1)
+        _, predicted = torch.max(outputs, 1) #max
         preds_correct += (predicted == labels).sum().item()
         preds_sum += labels.size(0)
 
