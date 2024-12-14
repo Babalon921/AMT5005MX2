@@ -1,5 +1,5 @@
 # WELCOME
-BuildTools is Me I just didn't update the Author info of my git in Viusal Code.
+Simple Network That uses Tkinter as a GUI
 # Library’s Needed
 
  - torch #For the network
