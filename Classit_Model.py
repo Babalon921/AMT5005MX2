@@ -59,7 +59,7 @@ def visualize_audio_waveform(audio_path):
     y, sr = librosa.load(audio_path, sr=None)
     plt.figure(figsize=(5, 2), facecolor='#2E2E2E')
     ax = plt.gca() 
-    ax.set_facecolor('#2E2E2E')
+    ax.set_facecolor('#2E2E2E') #set background of axises to background of GUI (better looking)
     plt.plot(y,color='red')
     plt.title("Waveform",color='white') #american spelling color 
     plt.xlabel("Time",color='white')
