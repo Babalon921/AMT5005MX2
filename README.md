@@ -7,6 +7,7 @@
  - numpy #for the tensors and arrays etc
  - tkinter # GUI
  - matplotlib #Graph's
+ - libs.txt is a pip freeze of my libs
 
 ## Directories
 
