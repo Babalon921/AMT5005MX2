@@ -14,7 +14,7 @@ import matplotlib.pyplot as plt
 from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg
 
 #same as the one used for training
-class AudioClassifier(nn.Module): # OPP
+class AudioClassifier(nn.Module): #OOP
     def __init__(self):
         super(AudioClassifier, self).__init__()
         self.fc1 = nn.Linear(13, 64)#13 MFFC IN'ss

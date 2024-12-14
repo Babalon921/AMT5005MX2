@@ -21,7 +21,7 @@ def extract_mfcc(audio_path, n_mfcc=13):
     return np.mean(mfcc.T, axis=0)  #average's MFFC across the frames! 
 
 #dataset
-class AudioDataset(Dataset):
+class AudioDataset(Dataset): #OOP
     def __init__(self, a_files, labels, transform=None): 
         self.a_files = a_files
         self.labels = labels
@@ -64,7 +64,7 @@ train_loader = DataLoader(train_set, batch_size=32, shuffle=True)
 val_loader =  DataLoader(val_set, batch_size=32, shuffle=False)
 
 # 13 inputs => 64 hidden layers => KICK, HAT, SNARE aka 3 Outputs
-class AudioClassifier(nn.Module): #OPP
+class AudioClassifier(nn.Module): #OOP
     def __init__(self):
             super(AudioClassifier, self).__init__() #call parent OPP (whole class thing :) )
             self.fc1 = nn.Linear(13, 64) #13 MFCC features
