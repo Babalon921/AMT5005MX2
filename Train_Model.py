@@ -84,11 +84,11 @@ class AudioClassifier(nn.Module): #OOP
 #setting up model + extra
 model = AudioClassifier()
 criterion = nn.CrossEntropyLoss()
-optimizer = optim.Adam(model.parameters(), lr=0.001)  # Learning a little smaller for extra updates
+optimizer = optim.Adam(model.parameters(), lr=0.001)  # Learning rate a little smaller for extra updates
 
 epochs_num = 500  #number of epochs before stopping learning
 
-def train_model(): #train's model with error handling to let you know what happened
+def train_model(): #train's model with error handling for fun
     try:
         for epoch in range(epochs_num):
             try:
