@@ -24,6 +24,7 @@ The sample itself is very SNARE sounding so i can see why it predicts incorrectl
  - matplotlib #Graph's
  - playsound
  - threading
+ - sklearn
  - libs.txt is a pip freeze of my libs
 
 ## Directories
