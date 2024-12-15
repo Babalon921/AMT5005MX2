@@ -1,7 +1,9 @@
 '''
 By Harry Gray
-First time using MFFC, this is a intresting method but it seems like the most conventunal way to process audio data in this instance.
+First time using MFFC?, it was for me!
 https://librosa.org/doc/latest/generated/librosa.feature.mfcc.html
+https://scikit-learn.org/stable/modules/generated/sklearn.model_selection.train_test_split.html#sklearn.model_selection.train_test_split
+
 '''
 
 import os
@@ -44,8 +46,8 @@ class AudioDataset(Dataset): #OOP
             features = self.transform(features)
         return torch.tensor(features, dtype=torch.float32), torch.tensor(label, dtype=torch.long)
 
-#loading files
-audio_dir = 'AudioFiles'
+#loading files variables 
+audio_dir = 'AudioFiles' #change the data set location if you like, make sure its in the same structure however.
 a_files = []
 labels = []
 
@@ -166,7 +168,8 @@ root.configure(bg="#2E2E2E")  #most likable grey
 #executes Classit_Model.py for quicker access
 def class_audio():  
     root.destroy()
-    os.system("python Classit_Model.py");
+    os.system("python Classit_Model.py")
+    exit;
 
 #buttons
 train_button = tk.Button(root, text="Train", command=train_thread.start , width=15, height=2, bg="aquamarine1")

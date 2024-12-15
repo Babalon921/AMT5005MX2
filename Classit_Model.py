@@ -16,8 +16,8 @@ from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg
 #threading for later use
 import threading
 
-#playsound to play the .wav | simply libary
-from playsound import playsound
+#playsound to play the .wav | simply libary nothing special
+from playsound import playsound 
 
 
 #same as the one used for training
