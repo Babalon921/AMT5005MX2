@@ -20,7 +20,7 @@ from sklearn.model_selection import train_test_split
 import librosa
 from torch.utils.data import Dataset, DataLoader
 
- ## model_undertraining = False #checks if the model is already being trained (prevents spamming the button) ##NOT REQUIRED Thread is allready doing this
+thread_active = False;
 
 #MFFC from files (extract 13 features)
 def extract_mfcc(audio_path, n_mfcc=13):
@@ -90,7 +90,10 @@ optimizer = optim.Adam(model.parameters(), lr=0.001)  # Learning rate a little s
 
 epochs_num = 500  #number of epochs before stopping learning
 
+
+
 def train_model(): #train's model with error handling for fun
+    global thread_active ##global thread_active
     try:
         for epoch in range(epochs_num):
             try:
@@ -150,14 +153,15 @@ def train_model(): #train's model with error handling for fun
         try:
             torch.save(model.state_dict(), 'audio_classifier.pth')
             print("Model saved successfully.")
+            thread_active = not thread_active
+            return
         except Exception as e:
             print(f"Error saving the model: {e}")
 
     except Exception as e:
         print(f"Error in training process: {e}")
 
-#threading
-train_thread = threading.Thread(target=train_model)
+
 
 
 #--------------------------------GUI--------------------------------------
@@ -171,8 +175,20 @@ def class_audio():
     os.system("python Classit_Model.py")
     exit;
 
-#buttons
-train_button = tk.Button(root, text="Train", command=train_thread.start , width=15, height=2, bg="aquamarine1")
+#threading
+
+def start_training_thread():
+    global thread_active
+    if thread_active == False:
+        # Create a new thread each time the button is clicked
+        train_thread = threading.Thread(target=train_model)
+        train_thread.start()
+        thread_active = not thread_active
+    else:
+        print("TRAINING IN PROGRESS")
+
+#buttons    
+train_button = tk.Button(root, text="Train", command=start_training_thread , width=15, height=2, bg="aquamarine1")
 train_button.pack(pady=10)
 
 class_button = tk.Button(root, text="Class", command=class_audio, width=15, height=2, bg="brown1")
