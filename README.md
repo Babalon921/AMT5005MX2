@@ -11,7 +11,7 @@ Simple Network That uses Tkinter as a GUI, 100-500 epochs with somewhat high acc
 
 Some interesting issues:
 HAT 02 almost always causes a false positive, it’s a HAT that usually is predicted as a KICK or SNARE.
-Increasing the dataset will help this.
+The sample itself is very SNARE sounding so i can see why it predicts incorrectly.
 
 
 
