@@ -1,17 +1,17 @@
 # WELCOME
 
-Start by running Train_Model.py - NEW GUI
+Start by running Train_Model.py
 
 Simple Network That uses Tkinter as a GUI, 100-500 epochs with somewhat high accuracy (this takes 2 minutes to train), only 3 Class's "KICK,HAT,SNARE" so feeding it anything else will result in false positive.
 
-KICK is low frequency, slow attack
-HAT is high frequency, quick attack
-SNARE is both low, mid and high, quick attack
-This was chosen as a decent challenge for the model, since SNARE is similar to both KICK and HAT is certain ways.
+ - KICK is low frequency, slow attack
+ - HAT is high frequency, quick attack
+ - SNARE is both low, mid and high, quick attack
+ - This was chosen as a decent challenge for the model, since SNARE is similar to both KICK and HAT is certain ways.
 
 Some interesting issues:
 HAT 02 almost always causes a false positive, it’s a HAT that usually is predicted as a KICK or SNARE.
-Increasing the dataset will help this.
+The sample itself is very SNARE sounding so i can see why it predicts incorrectly.
 
 
 
@@ -24,6 +24,7 @@ Increasing the dataset will help this.
  - matplotlib #Graph's
  - playsound
  - threading
+ - sklearn
  - libs.txt is a pip freeze of my libs
 
 ## Directories
