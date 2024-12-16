@@ -36,7 +36,7 @@ The sample itself is very SNARE sounding so i can see why it predicts incorrectl
 
 ## _Train_Model.py -
 
-This reads from the AudioFiles/* then takes 13 features (MFFC) from each audio file, the directory is how the class is identified. Create’s a model 13 inputs 2 x 64 hidden layer 3 outputs KICK HAT SNARE. (This is to predict the class of the selected wav file). Trains the model, and dumps it as a dict, .pth. (This helps if you don’t want to train the model yourself) (it takes less than a minute) (highly depends on how big I make my dataset).
+This reads from the AudioFiles/* then takes 13 features (MFFC) from each audio file, the directory is how the class is identified. Create’s a model 13 inputs 2 x 64 hidden layer 3 outputs KICK HAT SNARE. (This is to predict the class of the selected wav file). Trains the model, and dumps it as a dict, .pth. (This helps if you don’t want to train the model yourself) (it takes less than a 2 minute) (highly depends on how big I make my dataset).
 
 ## _Classit.py -
 
